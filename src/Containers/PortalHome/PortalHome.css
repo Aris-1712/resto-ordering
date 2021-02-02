@@ -1,0 +1,8 @@
+.Portal_Home{
+    margin:100px 100px
+
+}
+.Portal_Add{
+    display: flex;
+    flex-direction: column;
+}

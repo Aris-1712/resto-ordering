@@ -1,0 +1,7 @@
+.Add_Category{
+    margin:0px 50px;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    justify-content: space-between;
+}

@@ -1,0 +1,7 @@
+.Add_Dishes{
+    margin:0px 50px;
+    display: flex;
+    flex-direction: column;
+    height: 800px;
+    justify-content: space-between;
+}
