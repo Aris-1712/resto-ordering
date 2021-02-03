@@ -14,6 +14,7 @@ const { Option } = Select;
 const { Title } = Typography;
 
 const AddDishes = (props) => {
+    const [edit,setEdit]=useState(false)
     const [mealName, setMealName] = useState('')
     const [type, setType] = useState('veg')
     const [customization, setCustomization] = useState(false)
@@ -23,17 +24,88 @@ const AddDishes = (props) => {
     const [customPrice, setCustomPrice] = useState('')
     const [category, setCategory] = useState([])
     const [selectCategory, setSelectCategory] = useState(null)
+    const [editId,setEditId]=useState('')
     const clear=()=>{
         setMealName("")
         setPrice(0)
         setCustomItems([])
         setCustomName("")
         setCustomPrice("")
-        selectCategory(null)
+        setSelectCategory(null)
     }
+    useEffect(()=>{
+        if(typeof props.edit !=="undefined" && props.edit){
+        setEdit(true)
+        setEditId(props.meal.id)
+        setMealName(props.meal.name)
+        setPrice(props.meal.price)
+        setCustomItems([...props.meal.customItems])
+        setCustomName("")
+        setCustomPrice("")
+        setType(props.meal.type)
+        setSelectCategory(props.meal.category) 
+        setCustomization(props.meal.customization)
+    }
+    },[props.meal])
     useEffect(() => {
         setCategory([...props.category])
     }, [props.category])
+    const editMeal=()=>{
+        if(mealName!=="" && selectCategory!==null ){
+            if(customization && customItems.length==0){
+                toast.error("Please add items to customization.", {
+                    position: "top-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    });
+                    return;
+            }
+        firebase.firestore().collection("Meals").doc(editId).update({
+          name:mealName,
+          type:type,
+          customization:customization,
+          price:parseFloat(price),
+          customItems:customItems,
+          category:selectCategory,
+        }).then((res)=>{
+            props.close()
+            toast.success("Meal edited successfully.", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+                clear()
+        }).catch(err=>{
+            toast.error(err, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+        })
+    }else{
+        toast.error("Please fill all the details.", {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });
+    }
+    }
     const save=()=>{
         if(mealName!=="" && selectCategory!==null ){
             if(customization && customItems.length==0){
@@ -92,14 +164,14 @@ const AddDishes = (props) => {
     }
     return (
         <div className="Add_Dishes">
-            <Title level={2}>Add Meal</Title>
+            {edit?<Title level={2}>Edit Meal</Title>:<Title level={2}>Add Meal</Title>}
             <div>
                 <Title level={4}>Meal Name</Title>
                 <Input value={mealName} onChange={(e) => { setMealName(e.target.value) }} placeholder="Fajita Pizza"></Input>
             </div>
             <div>
                 <Title level={4}>Select Category</Title>
-                <Select defaultValue={"SELECT"} style={{ width: 200 }} onChange={(val)=>{setSelectCategory(val)}}>
+                <Select value={selectCategory} defaultValue={"SELECT"} style={{ width: 200 }} onChange={(val)=>{setSelectCategory(val)}}>
                     {category.map((ele)=>{
                         return(<Option value={ele.id}>{ele.name}</Option>)
                     })}
@@ -148,7 +220,7 @@ const AddDishes = (props) => {
                     })}
                 </div>
                 : null}
-                <Button onClick={save} style={{width:150}} type="primary">SAVE  MEAL</Button>
+                {edit?<Button onClick={editMeal} style={{width:150}} type="primary">EDIT  MEAL</Button>:<Button onClick={save} style={{width:150}} type="primary">SAVE  MEAL</Button>}
         </div>
     )
 

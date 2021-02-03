@@ -15,3 +15,21 @@ export const getCategories=()=>{
         })
     })
 }
+
+const setMeals=(obj)=>{
+    return({
+        type:"SET_MEALS",
+        payLoad:[...obj]
+    })
+}
+export const getMeals=()=>{
+    return((dispatch)=>{
+        firebase.firestore().collection("Meals").where("companyid","==",localStorage.getItem("company_id")).onSnapshot((querysnap)=>{
+            let temp=[]
+            querysnap.forEach((ele)=>{
+                temp.push({...ele.data(),id:ele.id})
+            })
+            dispatch(setMeals([...temp]))
+        })
+    })
+}

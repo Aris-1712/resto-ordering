@@ -3,12 +3,14 @@ import './PortalHome.css'
 import { Tabs, Radio } from 'antd';
 import AddCategory from './AddCategory';
 import AddDishes from './AddDishes';
+import Menu from './Menu'
 import * as Actions from '../../Global/Actions'
 import { connect } from 'react-redux';
 const PortalHome=(props)=>{
-    // const [mode,setMode]=useState()
+   
     useEffect(()=>{
       props.getCategory()
+      props.getMeals()
     },[])
     const { TabPane } = Tabs;
 
@@ -17,16 +19,14 @@ const PortalHome=(props)=>{
             <div>
         
         <Tabs defaultActiveKey="1" tabPosition={'left'} >
-          {/* {[...Array.from({ length: 30 }, (v, i) => i)].map(i => (
-            <TabPane tab={`Tab-${i}`} key={i} disabled={i === 28}>
-              Content of tab {i}
-            </TabPane>
-          ))} */}
           <TabPane key={1} tab="Add Categories">
           <AddCategory></AddCategory>
           </TabPane>
           <TabPane key={2} tab="Add Meals">
           <AddDishes></AddDishes>
+          </TabPane>
+          <TabPane key={3} tab="Menu">
+          <Menu></Menu>
           </TabPane>
         </Tabs>
       </div>
@@ -37,7 +37,8 @@ const PortalHome=(props)=>{
 
 const mapActionsToProps=(dispatch)=>{
   return({
-    getCategory:()=>{dispatch(Actions.getCategories())}
+    getCategory:()=>{dispatch(Actions.getCategories())},
+    getMeals:()=>{dispatch(Actions.getMeals())}
   })
 }
 
