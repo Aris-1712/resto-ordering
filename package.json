@@ -9,6 +9,7 @@
     "antd": "^4.11.2",
     "firebase": "^8.2.5",
     "framer-motion": "^3.0.0",
+    "qrcode.react": "^1.0.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.1.0",
