@@ -33,7 +33,7 @@ const OrderSummary=(props)=>{
                 <>
             {!order[ele].customization?<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",zIndex:9,borderBottom:"1px solid #F18F01",padding:10}}>
                 <div style={{display:"flex",flexDirection:"column"}}>
-                <Text><span style={{marginRight:5}}>{order[ele].type==='veg'?<img src={`${process.env.PUBLIC_URL}/veg.jpg`} style={{ width: 15 }}></img>:<img src={`${process.env.PUBLIC_URL}/nonveg.jpg`} style={{ width: 15 }}></img>}</span>{order[ele].name}</Text>
+                <Text  style={{fontSize:16,fontWeight:600}} ><span style={{marginRight:5}}>{order[ele].type==='veg'?<img src={`${process.env.PUBLIC_URL}/veg.jpg`} style={{ width: 15 }}></img>:<img src={`${process.env.PUBLIC_URL}/nonveg.jpg`} style={{ width: 15 }}></img>}</span>{order[ele].name}</Text>
                 <Text type="secondary">₹ {order[ele].price}</Text>
                 </div>
                 <Title level={4}>₹ {parseFloat(order[ele].price*order[ele].count)}</Title>
@@ -43,7 +43,7 @@ const OrderSummary=(props)=>{
             {order[ele].customItems.map((ele2)=>{return(
             <>{ele2.qty>0?<div style={{display:"flex",justifyContent:"space-between",alignItems:"center",borderBottom:"1px solid #F18F01",padding:10}}>
             <div style={{display:"flex",flexDirection:"column"}}>
-            <Text><span style={{marginRight:5}}>{order[ele].type==='veg'?<img src={`${process.env.PUBLIC_URL}/veg.jpg`} style={{ width: 15 }}></img>:<img src={`${process.env.PUBLIC_URL}/nonveg.jpg`} style={{ width: 15 }}></img>}</span>{ele2.name}</Text>
+            <Text   style={{fontSize:16,fontWeight:600}}><span style={{marginRight:5}}>{order[ele].type==='veg'?<img src={`${process.env.PUBLIC_URL}/veg.jpg`} style={{ width: 15 }}></img>:<img src={`${process.env.PUBLIC_URL}/nonveg.jpg`} style={{ width: 15 }}></img>}</span>{ele2.name}</Text>
             <Text type="secondary">₹ {ele2.price}</Text>
             </div>
             <Title level={4}>₹ {parseFloat(ele2.price*ele2.qty)}</Title>
