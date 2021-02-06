@@ -2,10 +2,12 @@ import { Card, Empty } from 'antd';
 import { Typography, Modal } from 'antd';
 import { Tooltip, Tag, Button  } from 'antd';
 import { FiEdit3, FiTrash } from 'react-icons/fi'
+import {FiPlus} from 'react-icons/fi'
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import * as Actions from '../../../Global/Actions'
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai'
+import OrderSummary from './OrderSummary';
 const { Title } = Typography;
 const UserMenu = (props) => {
     const [category, setCategory] = useState([])
@@ -13,6 +15,7 @@ const UserMenu = (props) => {
     const [order, setOrder] = useState({})
     const [customModal, setCustomModal] = useState(false)
     const [customObj, setCustomObj] = useState({})
+    const [orderSummaryModal,setOrderSummaryModal]=useState(false)
     useEffect(() => {
         localStorage.setItem('company_id', props.match.params.id)
         props.getCategory()
@@ -74,7 +77,10 @@ const UserMenu = (props) => {
         }
     }
     return (
-        <div>
+        <div style={{padding:50}}>
+            <div onClick={()=>{setOrderSummaryModal(true)}} style={{position:"fixed",cursor:"pointer",bottom:0,right:0,margin:35,borderRadius:50,width:50,height:50,display:"flex",justifyContent:"center",alignItems:"center",background:"#F18F01"}}>
+            <FiPlus style={{fontSize:25}}></FiPlus>
+            </div>
             {category.map((ele) => {
                 return (
                     <div>
@@ -84,7 +90,7 @@ const UserMenu = (props) => {
                         </div>
                         <hr></hr>
                         <br></br>
-                        <div style={{ display: "flex", flexDirection: "row" }}>
+                        <div style={{ display: "flex", flexDirection: "row",flexWrap:"wrap" }}>
                             {meals.filter((ele2) => {
                                 if (ele2.category === ele.id) {
                                     return true
@@ -139,6 +145,7 @@ const UserMenu = (props) => {
                     )
                 }):null}
             </Modal>
+            <OrderSummary handelCancel={()=>{setOrderSummaryModal(false)}} order={order} visible={orderSummaryModal}></OrderSummary>
         </div>
     )
 

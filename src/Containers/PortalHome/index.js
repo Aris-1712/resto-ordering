@@ -14,7 +14,7 @@ const PortalHome=(props)=>{
       props.getMeals()
     },[])
     const { TabPane } = Tabs;
-
+    console.log(window.location)
     return(
         <div className="Portal_Home">
             <div>
@@ -30,7 +30,7 @@ const PortalHome=(props)=>{
           <Menu></Menu>
           </TabPane>
           <TabPane key={4} tab="QR Code">
-          <QRCode value={`http://192.168.0.100:3000/user/menu/${localStorage.getItem('company_id')}`} />
+          <QRCode value={`${window.location.origin}/user/menu/${localStorage.getItem('company_id')}`} />
           </TabPane>
         </Tabs>
       </div>

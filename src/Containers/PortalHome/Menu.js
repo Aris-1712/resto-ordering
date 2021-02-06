@@ -107,7 +107,7 @@ const Menu = (props) => {
                         </div>
                     <hr></hr>
                     <br></br>
-                    <div style={{ display: "flex", flexDirection: "row" }}>
+                    <div style={{ display: "flex", flexDirection: "row",flexWrap:"wrap" }}>
                         {meals.filter((ele2) => {
                             if (ele2.category === ele.id) {
                                 return true

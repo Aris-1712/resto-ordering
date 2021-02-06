@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router'
 import PortalHome from '../PortalHome'
 import PortalLogin from '../PortalLogin'
 import PortalSignup from '../PortalSignup'
+import PrivateRoute from './PrivateRoute'
 
 const Portal=(props)=>{
     console.log("HERE")
@@ -11,7 +12,7 @@ const Portal=(props)=>{
    
             <Switch>
             <Route path="/portal/login" component={PortalLogin}></Route>
-            <Route path='/portal/home' component={PortalHome}></Route>
+            <PrivateRoute path='/portal/home' component={PortalHome}></PrivateRoute>
             <Route path="/portal/Register" component={PortalSignup}></Route>
             </Switch>
         </>

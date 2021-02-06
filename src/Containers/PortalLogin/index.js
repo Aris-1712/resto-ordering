@@ -46,9 +46,6 @@ const PortalLogin = (props) => {
                         <input value={password} onChange={(e)=>{setPassword(e.target.value)}}  required type="password" placeholder="********" id="password" name="password" />
                     </div>
                     <div class="input-field">
-                        {/* <label for="remember">
-                            <input type="checkbox" name="" id="remember" />Remember me
-      </label> */}
                     </div>
                     <div class="action">
                         {/* <a href="#">forgot your password?</a> */}
