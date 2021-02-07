@@ -78,7 +78,7 @@ const UserMenu = (props) => {
     }
     return (
         <div style={{padding:50}}>
-            <div onClick={()=>{setOrderSummaryModal(true)}} style={{position:"fixed",cursor:"pointer",bottom:0,right:0,margin:35,borderRadius:50,width:50,height:50,display:"flex",justifyContent:"center",alignItems:"center",background:"#F18F01"}}>
+            <div onClick={()=>{setOrderSummaryModal(true)}} style={{position:"fixed",cursor:"pointer",zIndex:9,bottom:0,right:0,margin:35,borderRadius:50,width:50,height:50,display:"flex",justifyContent:"center",alignItems:"center",background:"#F18F01"}}>
             <FiPlus style={{fontSize:25}}></FiPlus>
             </div>
             {category.map((ele) => {
