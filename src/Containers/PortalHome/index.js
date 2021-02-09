@@ -7,6 +7,7 @@ import Menu from './Menu'
 import * as Actions from '../../Global/Actions'
 import { connect } from 'react-redux';
 import QRCode from 'qrcode.react'
+import Dashboard from './Dashboard';
 const PortalHome=(props)=>{
    
     useEffect(()=>{
@@ -31,6 +32,9 @@ const PortalHome=(props)=>{
           </TabPane>
           <TabPane key={4} tab="QR Code">
           <QRCode value={`${window.location.origin}/user/menu/${localStorage.getItem('company_id')}`} />
+          </TabPane>
+          <TabPane key={5} tab="Dashboard">
+          <Dashboard></Dashboard>
           </TabPane>
         </Tabs>
       </div>

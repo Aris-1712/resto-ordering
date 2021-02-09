@@ -1,10 +1,25 @@
-import {Modal,Typography} from 'antd'
+import {Button, Modal,Typography} from 'antd'
 import React, { useEffect, useState } from 'react'
-
+import firebase from '../../../Global/firebase'
+import {toast} from 'react-toastify'
 const { Title , Text} = Typography;
 const OrderSummary=(props)=>{
     const [order,setOrder]=useState({})
     const [total,setTotal]=useState(0)
+    const orderMeal=()=>{
+        firebase.firestore().collection("Order_Items").add({order,table_number:localStorage.getItem("table_number"),total:total,served:false,orderid:localStorage.getItem("orderid"),companyid:localStorage.getItem("company_id")}).then((data)=>{
+            toast.success("Order successefull", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                });
+                window.location.reload()
+        })
+    }
     useEffect(()=>{
         setOrder({...props.order})
     },[props.order])
@@ -26,7 +41,7 @@ const OrderSummary=(props)=>{
         }
     },[order])
     return(
-        <Modal  onCancel={()=>props.handelCancel()} title="Order Summary" visible={props.visible}>
+        <Modal onOk={()=>{orderMeal()}}  onCancel={()=>props.handelCancel()} title="Order Summary" visible={props.visible}>
         {Object.keys(order).map((ele)=>{
             console.log(ele)
             return(
@@ -53,6 +68,7 @@ const OrderSummary=(props)=>{
         })}
         <div style={{padding:10,display:"flex",justifyContent:"space-between",alignItems:"center"}}> <Title level={4}>Total</Title>
         <Title level={4}>₹ {total}</Title>
+       
         </div>
         </Modal>
     )
