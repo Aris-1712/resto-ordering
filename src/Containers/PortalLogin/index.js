@@ -14,8 +14,9 @@ const PortalLogin = (props) => {
                 result.forEach((ele)=>{
                     localStorage.setItem("company_id",ele.id)
                 })
+                props.history.push('/portal/home')
             })
-            props.history.push('/portal/home')
+            
         }).catch((err)=>{
             toast.error(err, {
                 position: "top-center",
@@ -48,7 +49,6 @@ const PortalLogin = (props) => {
                     <div class="input-field">
                     </div>
                     <div class="action">
-                        {/* <a href="#">forgot your password?</a> */}
                         <button type="submit" id="btn" class="btn">Sign in</button>
                     </div>
                 </div>

@@ -6,15 +6,12 @@ import FinalBill from './FinalBill';
 const Dashboard = (props) => {
 
     return (
-        <div style={{ display: "flex", height: "100%" }}>
-
+        <div style={{ display: "flex", height: "100%", width: "100%", justifyContent: "space-around" }}>
             <OpenOrders></OpenOrders>
-            <Divider style={{ background: "gray" }} type="vertical" />
-
+            <Divider style={{ background: "gray", height: "auto" }} type="vertical" />
             <ClosedOrders></ClosedOrders>
-            <Divider style={{ background: "gray" }} type="vertical" />
+            <Divider style={{ background: "gray", height: "auto" }} type="vertical" />
             <FinalBill></FinalBill>
-            
         </div>
     )
 

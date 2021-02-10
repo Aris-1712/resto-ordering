@@ -1,14 +1,12 @@
-import { Card, Typography, Button, Tag, Modal } from 'antd'
-import useSelection from 'antd/lib/table/hooks/useSelection'
+import {  Typography } from 'antd'
 import React, { useEffect, useState } from 'react'
 import firebase from '../../Global/firebase'
 import BillCard from './BillCard';
-import BillSummary from './BillSummary';
-const { Text } = Typography;
+const { Text,Title } = Typography;
 const FinalBill = (props) => {
     const [orderid, setOrderid] = useState([])
     const [final, setFinal] = useState({})
-    const [modal,setModal]=useState(false)
+    const [modal, setModal] = useState(false)
     useEffect(() => {
         firebase.firestore().collection("Orders").where("companyid", '==', localStorage.getItem("company_id")).where("closed", "==", true).onSnapshot((snap) => {
             let temp = []
@@ -21,15 +19,14 @@ const FinalBill = (props) => {
     }, [])
     useEffect(() => {
         if (orderid.length !== 0) {
-
-            orderid.forEach((ele) => {
+           const getData=async()=>{
+            let obj = {}
+            for (const ele of orderid) {
                 let temp = []
-                firebase.firestore().collection("Order_Items").where("orderid", '==', ele).get().then((res) => {
+                
+              await  firebase.firestore().collection("Order_Items").where("orderid", '==', ele).get().then((res) => {
                     let total = 0
                     res.forEach((result) => {
-
-                        total = total + result.data().total
-                        console.log(result.data())
                         Object.keys(result.data().order).forEach((elem) => {
                             if (result.data().order[elem].customization === true) {
                                 result.data().order[elem].customItems.forEach((eleC) => {
@@ -39,8 +36,12 @@ const FinalBill = (props) => {
                                     data.price = eleC.price
                                     data.type = result.data().order[elem].type
                                     data.orderid = ele
+                                    data.table_number=result.data().table_number
+                                    if(data.qty===0){
+                                        return
+                                    }
                                     temp.push(data)
-                                })              
+                                })
 
                             } else {
                                 let data = {}
@@ -49,26 +50,28 @@ const FinalBill = (props) => {
                                 data.price = result.data().order[elem].price
                                 data.type = result.data().order[elem].type
                                 data.orderid = ele
+                                data.table_number=result.data().table_number
                                 temp.push(data)
                             }
 
                         })
                     })
-                  
-                    setFinal({...final, [ele]: [...temp] })
-                 
                 })
-                
-                
-            })
+            obj={...obj,[ele]:[...temp]}
         }
+        setFinal({...obj})
+    }
+    getData()
+   
+    }
     }, [orderid])
     return (
         <div>
+            <Title level={3}>Bill Requests</Title>
             {Object.keys(final).map(ele => {
-                return(
-                    <BillCard orderid={ele} data={final[ele]}></BillCard>
-                    
+                return (
+                    <BillCard table={final[ele][0].table_number} orderid={ele} data={final[ele]}></BillCard>
+
                 )
             })}
         </div>

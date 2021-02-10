@@ -4,17 +4,28 @@ import { IoRestaurant } from 'react-icons/io5'
 const TableNumber = (props) => {
     const [visible, setVisible] = useState(true)
     const [table, setTable] = useState(parseInt(localStorage.getItem('table_number')))
-    return (
-        <Modal closable={false} visible={visible} footer={<div><Button onClick={() => {
-            if(table){
-                localStorage.setItem('table_number',table)
-                setVisible(false)
-            }
-            else{
-                return
-            }
+    useEffect(()=>{
+        if(localStorage.getItem('table_number')!==null){
+            setVisible(false)
         }
-        }>Confirm</Button></div>}>
+    },[])
+    return (
+        <Modal closable={false} visible={visible} footer={
+            <div>
+                <Button
+                    onClick={() => {
+                        if (table) {
+                            localStorage.setItem('table_number', table)
+                            setVisible(false)
+                        }
+                        else {
+                            return
+                        }
+                    }}>
+                    Confirm
+                    </Button>
+            </div>
+        }>
             <div style={{ textAlign: "center" }}>
                 <IoRestaurant style={{ fontSize: 100 }}></IoRestaurant>
                 <br></br>

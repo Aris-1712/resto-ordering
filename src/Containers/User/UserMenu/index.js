@@ -89,7 +89,9 @@ const UserMenu = (props) => {
     }
     return (
         <div style={{ padding: 50 }}>
-             <Button size="middle" danger onClick={()=>{
+             <div style={{display:"flex",justifyContent:"space-between"}}>
+                 <Title>Menu</Title>
+                 <Button size="middle" danger onClick={()=>{
             firebase.firestore().collection("Orders").doc(localStorage.getItem("orderid")).update({closed:true}).then((res)=>{
                 localStorage.clear()
                 toast.success("Thank you. Do visit us again.", {
@@ -102,7 +104,7 @@ const UserMenu = (props) => {
                     progress: undefined,
                     });
             })
-        }}>Checkout ?</Button>
+        }}>Checkout ?</Button></div>
             <div onClick={() => { setOrderSummaryModal(true) }} style={{ position: "fixed", cursor: "pointer", zIndex: 9, bottom: 0, right: 0, margin: 35, borderRadius: 50, width: 50, height: 50, display: "flex", justifyContent: "center", alignItems: "center", background: "#F18F01" }}>
                 <FiPlus style={{ fontSize: 25 }}></FiPlus>
             </div>
@@ -157,7 +159,7 @@ const UserMenu = (props) => {
             })}
             <Modal closable={false} footer={[<Button key="back" onClick={() => { setCustomModal(false) }}>
                 OK
-            </Button>]} title="Select" visible={customModal} /* onOk={handleOk} */ /* onCancel={()=>{setCustomModal(false)}} */>
+            </Button>]} title="Select" visible={customModal}>
                 {Object.keys(customObj).length > 0 ? customObj.customItems.map((ele, i) => {
                     console.log(order)
                     return (

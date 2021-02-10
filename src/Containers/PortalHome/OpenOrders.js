@@ -3,7 +3,7 @@ import useSelection from 'antd/lib/table/hooks/useSelection'
 import React, { useEffect, useState } from 'react'
 import firebase from '../../Global/firebase'
 import {toast} from 'react-toastify'
-const { Text } = Typography;
+const { Text,Title } = Typography;
 const OpenOrders=(props)=>{
 const [open,setOpen]=useState([])
 useEffect(()=>{
@@ -30,18 +30,19 @@ const served=(id)=>{
         });
 }
 return(<div>
+    <Title level={3}>Open Orders</Title>
     {open.map((ele)=>{
         return(
-            <Card size="small" title={`Table: ${ele.table_number}`} extra={<a href="#">More</a>} style={{ width: 300,marginBottom:20 }}>
+            <Card size="small" title={`Table: ${ele.table_number}`} extra={<a href="#">More</a>} style={{ width: 350,marginBottom:20 }}>
       {Object.keys(ele.order).map((ele2)=>{
           
           return(
               <>
-              {ele.order[ele2].customization===false?<Text strong>{ele.order[ele2].name} <span><Text mark>x{ele.order[ele2].count}</Text></span></Text>:<>
+              {ele.order[ele2].customization===false?<div><Text strong>{ele.order[ele2].name} <span><Text mark>x{ele.order[ele2].count}</Text></span></Text></div>:<>
               {ele.order[ele2].customItems.map((ele3)=>{
                   if(ele3.qty>0){
                   return(
-                    <Text strong>{ele3.name} <span><Text mark>x{ele3.qty}</Text></span></Text>
+                    <div><Text strong>{ele3.name} <span><Text mark>x{ele3.qty}</Text></span></Text></div>
                   )
                 }
               })}
@@ -58,7 +59,7 @@ return(<div>
       </div>
     </Card>
         )
-    })
+    }).reverse()
    
     }
 </div>)
