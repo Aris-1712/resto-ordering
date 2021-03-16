@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Switch } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import Portal from './Containers/Portal';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
@@ -12,6 +12,11 @@ function App() {
       <Switch>
       <Route path='/portal' component={Portal}></Route>
       <Route path="/User" component={User}></Route>
+      <Route path="*" render={()=>{
+        return(
+          <Redirect to={'/portal/home'}></Redirect>
+        )
+      }}></Route>
       </Switch>
       <ToastContainer />
     </div>

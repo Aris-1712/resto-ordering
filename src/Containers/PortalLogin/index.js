@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router'
 import './PortalLogin.css'
 import firebase from '../../Global/firebase'
 import {toast} from 'react-toastify'
+import { Link } from 'react-router-dom'
 const PortalLogin = (props) => {
     const [email,setEmail]=useState('')
     const [password,setPassword]=useState('')
@@ -48,6 +49,7 @@ const PortalLogin = (props) => {
                     </div>
                     <div class="input-field">
                     </div>
+                    <Link to="/portal/register">New user ?</Link>
                     <div class="action">
                         <button type="submit" id="btn" class="btn">Sign in</button>
                     </div>
